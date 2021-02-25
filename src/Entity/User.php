@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
  */
 class User implements UserInterface
 {
@@ -23,7 +22,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $login;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -47,17 +46,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getLogin()
+    public function getUsername()
     {
-        return $this->login;
+        return $this->username;
     }
 
     /**
-     * @param mixed $login
+     * @param mixed $username
      */
-    public function setLogin($login): void
+    public function setUsername($username)
     {
-        $this->login = $login;
+        $this->username = $username;
     }
 
     /**
@@ -71,7 +70,7 @@ class User implements UserInterface
     /**
      * @param mixed $password
      */
-    public function setPassword($password): void
+    public function setPassword($password)
     {
         $this->password = $password;
     }
@@ -81,13 +80,13 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return $this->roles;
+        return [$this->roles];
     }
 
     /**
      * @param mixed $roles
      */
-    public function setRoles($roles): void
+    public function setRoles($roles)
     {
         $this->roles = $roles;
     }
@@ -96,10 +95,6 @@ class User implements UserInterface
     public function getSalt()
     {return null;}
 
-    public function getUsername()
-    {
-        return $this->login;
-    }
 
     public function eraseCredentials()
     {
