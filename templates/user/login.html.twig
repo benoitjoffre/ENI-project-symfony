@@ -1,12 +1,12 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}{{ parent() }}| Login{% endblock %}
+{% block title %}{{ parent() }}| Login {% endblock %}
 {% block main %}
     <form method="post">
         <label for="login">Login:</label>
         <input type="text" id="login" name="login">
 
-        <label for="password">Password:</label>
+        <label for="password">Password:</label> 
         <input type="password" id="password" name="password">
 
         <button type="submit">Login</button>
