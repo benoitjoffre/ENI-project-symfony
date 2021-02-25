@@ -3,12 +3,21 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+<<<<<<< HEAD
+=======
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass=UserRepository::class)
+<<<<<<< HEAD
+=======
+ * @ORM\Table(name="`user`")
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
  */
 class User implements UserInterface
 {
@@ -22,7 +31,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
+<<<<<<< HEAD
     private $username;
+=======
+    private $login;
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -35,6 +48,19 @@ class User implements UserInterface
     private $roles;
 
     /**
+<<<<<<< HEAD
+=======
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organizer")
+     */
+    private $sortiesOrganisees;
+
+    public function __construct()
+    {
+        $this->sortiesOrganisees = new ArrayCollection();
+    }
+
+    /**
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
      * @return mixed
      */
     public function getId()
@@ -46,6 +72,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
+<<<<<<< HEAD
     public function getUsername()
     {
         return $this->username;
@@ -57,6 +84,19 @@ class User implements UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
+=======
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param mixed $login
+     */
+    public function setLogin($login): void
+    {
+        $this->login = $login;
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
     }
 
     /**
@@ -70,7 +110,11 @@ class User implements UserInterface
     /**
      * @param mixed $password
      */
+<<<<<<< HEAD
     public function setPassword($password)
+=======
+    public function setPassword($password): void
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
     {
         $this->password = $password;
     }
@@ -80,13 +124,21 @@ class User implements UserInterface
      */
     public function getRoles()
     {
+<<<<<<< HEAD
         return [$this->roles];
+=======
+        return $this->roles;
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
     }
 
     /**
      * @param mixed $roles
      */
+<<<<<<< HEAD
     public function setRoles($roles)
+=======
+    public function setRoles($roles): void
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
     {
         $this->roles = $roles;
     }
@@ -95,8 +147,48 @@ class User implements UserInterface
     public function getSalt()
     {return null;}
 
+<<<<<<< HEAD
+=======
+    public function getUsername()
+    {
+        return $this->login;
+    }
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
 
     public function eraseCredentials()
     {
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getSortiesOrganisees(): Collection
+    {
+        return $this->sortiesOrganisees;
+    }
+
+    public function addSortiesOrganisee(Sortie $sortiesOrganisee): self
+    {
+        if (!$this->sortiesOrganisees->contains($sortiesOrganisee)) {
+            $this->sortiesOrganisees[] = $sortiesOrganisee;
+            $sortiesOrganisee->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortiesOrganisee(Sortie $sortiesOrganisee): self
+    {
+        if ($this->sortiesOrganisees->removeElement($sortiesOrganisee)) {
+            // set the owning side to null (unless already changed)
+            if ($sortiesOrganisee->getOrganisateur() === $this) {
+                $sortiesOrganisee->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+>>>>>>> 6379409c72bb755b0dd5d31490a78490b1c2be5e
 }
