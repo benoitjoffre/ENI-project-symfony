@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Table(name="users")
@@ -38,7 +40,39 @@ class User implements UserInterface
     private $roles;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=no)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=no)
+     */
+    private $nom;
+
+           /**
+     * @ORM\Column(type="string", length=15, nullable=yes)
+     */
+    private $tel;
+
+       /**
+     * @ORM\Column(type="string", length=100, nullable=no)
+     */
+    private $email;
+
+           /**
+     * @ORM\Column(type="string", length=100, nullable=yes)
+     * @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
+     */
+    private $maphoto;
+
+    /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organizer")
+     *  * @Assert\File(maxSize = "1024k")
      */
     private $sortiesOrganisees;
 
@@ -87,7 +121,101 @@ class User implements UserInterface
     {
         $this->password = $password;
     }
+        /**
+     * @return mixed
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
 
+    /**
+     * @param mixed $pseudo
+     */
+    public function setPseudo($pseudo): void
+    {
+        $this->pseudo = $pseudo;
+    }
+
+            /**
+     * @return mixed
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * @param mixed $prenom
+     */
+    public function setPrenom($prenom): void
+    {
+        $this->prenom = $prenom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom): void
+    {
+        $this->nom = $nom;
+    }
+
+        /**
+     * @return mixed
+     */
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    /**
+     * @param mixed $tel
+     */
+    public function setTel($tel): void
+    {
+        $this->tel = $tel;
+    }
+    
+        /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($Email): void
+    {
+        $this->email = $email;
+    }
+
+        /**
+     * @return mixeds
+     */
+    public function getMaphoto()
+    {
+        return $this->maphoto;
+    }
+
+    /**
+     * @param mixed $maphoto
+     */
+    public function setMaphoto($maphoto): void
+    {
+        $this->maphoto = $maphoto;
+    }
     /**
      * @return mixed
      */

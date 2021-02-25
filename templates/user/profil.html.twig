@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+
+<h1>Logo Sortir.com</h1>
+
+{{ form_start(formInfo) }}
+
+{{ form_row(formInfo.pseudo) }}
+{{ form_row(formInfo.prenom) }}
+{{ form_row(formInfo.nom) }}
+{{ form_row(formInfo.tel) }}
+{{ form_row(formInfo.email) }}
+{{ form_row(formInfo.password) }}
+{{ form_row(formInfo.telecharger) }}
+
+<button type="submit" class="btn btn-success">
+    {% if editMode %}
+    
+    Enregistrer
+
+    {% else %}
+
+
+    Annuler
+
+{% endif %}
+
+</button>
+{{ form_end(formInfo) }}
+
+{% endblock %} 
