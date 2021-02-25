@@ -57,6 +57,16 @@ class Sortie
      */
     private $lieu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sortiesOrganisees")
+     */
+    private $organisateur;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $estPubliee;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +164,30 @@ class Sortie
     public function setLieu(?Lieu $lieu): self
     {
         $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?User
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?User $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getEstPubliee(): ?bool
+    {
+        return $this->estPubliee;
+    }
+
+    public function setEstPubliee(bool $estPubliee): self
+    {
+        $this->estPubliee = $estPubliee;
 
         return $this;
     }
