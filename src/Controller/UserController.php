@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
 use App\Form\ProfilType;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
@@ -21,31 +20,30 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="user_profil")
-     * @param UserInterface $user
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
+     * @Route("logout", name="logout")
      */
-    public function edit(UserInterface $user, Request $request, EntityManagerInterface $manager): Response
+    public function logout(){
+    }
+
+    /**
+     * @Route("/profil", name="user_profil")
+     */
+    public function edit(Request $request, EntityManagerInterface $manager)
     {
+        $user = new User();
+        $form = $this->createForm(ProfilType::class, $user);
 
+        $form->handleRequest($request);
 
-            $form = $this->createForm(ProfilType::class, $user);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('login');
+        }
 
-            $form->handleRequest($request);
-
-            if($form->isSubmitted() && $form->isValid()){
-                $manager->persist($user);
-                $manager->flush();
-                return $this->redirectToRoute('user_login',['id' => $user->getId()]);
-            }
-
-            return $this->render("user/profil.html.twig", [
-                "formInfo" => $form->createView()
-            ]);
-
-
+        return $this->render("user/profil.html.twig", [
+            "formInfo" => $form->createView()
+        ]);
 
     }
-}   
+}

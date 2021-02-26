@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Table(name="users")
@@ -36,36 +36,35 @@ class User implements UserInterface
      */
     private $roles;
 
-
     /**
-     * @ORM\Column(type="string", length=50, nullable=no)
+     * @ORM\Column(type="string", length=50)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=no)
+     * @ORM\Column(type="string", length=50)
      */
     private $nom;
 
-           /**
-     * @ORM\Column(type="string", length=15, nullable=yes)
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $tel;
 
-       /**
-     * @ORM\Column(type="string", length=100, nullable=no)
+    /**
+     * @ORM\Column(type="string", length=100)
+     * @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
      */
     private $email;
 
-           /**
-     * @ORM\Column(type="string", length=100, nullable=yes)
-     * @Assert\Email(message = "The email '{{ value }}' is not a valid email.")
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $maphoto;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organizer")
-     *  * @Assert\File(maxSize = "1024k")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
      */
     private $sortiesOrganisees;
 
@@ -114,8 +113,24 @@ class User implements UserInterface
     {
         $this->password = $password;
     }
-    
-            /**
+
+    /**
+     * @return mixed
+     */
+    public function getRoles()
+    {
+        return [$this->roles];
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
      * @return mixed
      */
     public function getPrenom()
@@ -147,7 +162,7 @@ class User implements UserInterface
         $this->nom = $nom;
     }
 
-        /**
+    /**
      * @return mixed
      */
     public function getTel()
@@ -162,8 +177,8 @@ class User implements UserInterface
     {
         $this->tel = $tel;
     }
-    
-        /**
+
+    /**
      * @return mixed
      */
     public function getEmail()
@@ -174,13 +189,13 @@ class User implements UserInterface
     /**
      * @param mixed $email
      */
-    public function setEmail($Email): void
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
 
-        /**
-     * @return mixeds
+    /**
+     * @return mixed
      */
     public function getMaphoto()
     {
@@ -193,21 +208,6 @@ class User implements UserInterface
     public function setMaphoto($maphoto): void
     {
         $this->maphoto = $maphoto;
-    }
-    /**
-     * @return mixed
-     */
-    public function getRoles()
-    {
-        return [$this->roles];
-    }
-
-    /**
-     * @param mixed $roles
-     */
-    public function setRoles($roles)
-    {
-        $this->roles = $roles;
     }
 
 

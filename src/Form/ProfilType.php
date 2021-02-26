@@ -13,15 +13,13 @@ class ProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo')
+            ->add('username')
             ->add('prenom')
             ->add('nom')
             ->add('tel')
             ->add('email')
             ->add('password')
-            ->add('maphoto', FileType::class, [
-                 'placeholder' => "Telecharger vers le serveur"
-            ])
+            ->add('maphoto', FileType::class)
         ;
     }
 
