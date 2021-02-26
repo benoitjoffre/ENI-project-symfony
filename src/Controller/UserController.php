@@ -24,10 +24,9 @@ class UserController extends AbstractController
     /**
      * @Route("logout", name="logout")
      */
-    public function logout(){
-    }
-}
-    /*
+    public function logout(){}
+
+    /**
      * @Route("/profil", name="user_profil")
      * @param UserInterface $user
      * @param Request $request

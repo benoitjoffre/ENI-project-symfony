@@ -74,25 +74,19 @@ class User implements UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
-
-    public function getLogin()
-    {
-        return $this->login;
     }
+        /**
+         * @return mixed
+         */
+        public
+        function getPassword()
+        {
+            return $this->password;
+        }
 
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-
-    public function setPassword($password)
+        /**
+         * @param mixed $password
+         */
 
     public function setPassword($password): void
 
@@ -114,7 +108,6 @@ class User implements UserInterface
     /**
      * @param mixed $roles
      */
-    public function setRoles($roles)
 
     public function setRoles($roles): void
     {
@@ -123,11 +116,8 @@ class User implements UserInterface
 
 
     public function getSalt()
-    {return null;}
-
-    public function getUsername()
     {
-        return $this->login;
+        return null;
     }
 
     public function eraseCredentials()
