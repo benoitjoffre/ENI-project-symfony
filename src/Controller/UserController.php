@@ -3,18 +3,12 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Form\ProfilType;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/login", name="user_login")
+     * @Route("/login", name="login")
      */
     public function login()
     {
@@ -24,7 +18,8 @@ class UserController extends AbstractController
     /**
      * @Route("logout", name="logout")
      */
-    public function logout(){}
+    public function logout(){
+    }
 
     /**
      * @Route("/profil", name="user_profil")
@@ -35,19 +30,19 @@ class UserController extends AbstractController
      */
     public function edit(UserInterface $user, Request $request, EntityManagerInterface $manager): Response
     {
-            $form = $this->createForm(ProfilType::class, $user);
+        $form = $this->createForm(ProfilType::class, $user);
 
-            $form->handleRequest($request);
+        $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
-                $manager->persist($user);
-                $manager->flush();
-                return $this->redirectToRoute('user_login',['id' => $user->getId()]);
-            }
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('user_login',['id' => $user->getId()]);
+        }
 
-            return $this->render("user/profil.html.twig", [
-                "formInfo" => $form->createView()
-            ]);
+        return $this->render("user/profil.html.twig", [
+            "formInfo" => $form->createView()
+        ]);
 
     }
 }

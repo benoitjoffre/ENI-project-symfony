@@ -3,16 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass=UserRepository::class)
-
  */
 class User implements UserInterface
 {
@@ -26,7 +22,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-
     private $username;
 
     /**
@@ -40,7 +35,7 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organizer")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
      */
     private $sortiesOrganisees;
 
@@ -50,7 +45,6 @@ class User implements UserInterface
     }
 
     /**
-
      * @return mixed
      */
     public function getId()
@@ -62,7 +56,6 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-
     public function getUsername()
     {
         return $this->username;
@@ -75,21 +68,19 @@ class User implements UserInterface
     {
         $this->username = $username;
     }
-        /**
-         * @return mixed
-         */
-        public
-        function getPassword()
-        {
-            return $this->password;
-        }
 
-        /**
-         * @param mixed $password
-         */
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
 
-    public function setPassword($password): void
-
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
     {
         $this->password = $password;
     }
@@ -99,26 +90,21 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-
         return [$this->roles];
-
-        return $this->roles;
     }
 
     /**
      * @param mixed $roles
      */
-
-    public function setRoles($roles): void
+    public function setRoles($roles)
     {
         $this->roles = $roles;
     }
 
 
     public function getSalt()
-    {
-        return null;
-    }
+    {return null;}
+
 
     public function eraseCredentials()
     {
