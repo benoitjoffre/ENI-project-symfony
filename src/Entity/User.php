@@ -36,10 +36,6 @@ class User implements UserInterface
      */
     private $roles;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=no)
@@ -118,22 +114,7 @@ class User implements UserInterface
     {
         $this->password = $password;
     }
-        /**
-     * @return mixed
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
-
-    /**
-     * @param mixed $pseudo
-     */
-    public function setPseudo($pseudo): void
-    {
-        $this->pseudo = $pseudo;
-    }
-
+    
             /**
      * @return mixed
      */
