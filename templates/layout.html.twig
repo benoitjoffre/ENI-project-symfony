@@ -26,7 +26,7 @@
                 <div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="">Home</a></li>
-                        <li><a href="{{ path('user_login') }}">Login</a></li>
+                        <li><a href="{{ path('login') }}">Login</a></li>
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <li><a href="{{ path('logout') }}">Logout</a></li>
                         {% endif %}

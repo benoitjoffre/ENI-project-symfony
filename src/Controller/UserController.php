@@ -28,14 +28,18 @@ class UserController extends AbstractController
     /**
      * @Route("/profil", name="user_profil")
      */
-    public function edit(Request $request, EntityManagerInterface $manager)
+    public function edit(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
         $form = $this->createForm(ProfilType::class, $user);
+       
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $password = $encoder->encodePassword($user, $user->getPassword());
+$user->setPassword($password);
+$manager->persist($user);
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('login');
