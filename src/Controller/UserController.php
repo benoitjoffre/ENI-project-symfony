@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
@@ -32,7 +33,6 @@ class UserController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(ProfilType::class, $user);
-       
 
         $form->handleRequest($request);
 
