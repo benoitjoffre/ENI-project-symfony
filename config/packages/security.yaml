@@ -13,7 +13,11 @@ security:
             anonymous: ~
             form_login:
                 login_path: login
+                failure_path: login
                 check_path: login
+                #rewriting service to handle login success and failure
+                success_handler: crv.authentication_success_handler
+                failure_handler: crv.authentication_failure_handler
 
             logout:
                 path: logout
@@ -25,6 +29,8 @@ security:
                 path: /
                 #uncomment the following line to always enable it
                 #always_remember_me: true
+
+    hide_user_not_found: false
 
 
     encoders:
