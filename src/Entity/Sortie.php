@@ -48,12 +48,12 @@ class Sortie
     private $infosSortie;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sorties")
      */
     private $etat;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sorties")
      */
     private $lieu;
 

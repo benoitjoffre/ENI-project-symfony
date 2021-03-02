@@ -36,7 +36,7 @@ class LieuController extends AbstractController
         if($lieuForm->isSubmitted() && $lieuForm->isValid()){
             $em->persist($lieu);
             $em->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('lieu/add.html.twig', [

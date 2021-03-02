@@ -1,9 +1,59 @@
-{% extends 'layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block main %}
-{{ form_start(sortieForm) }}
-    {{ form_widget(sortieForm) }}
-{{ form_end(sortieForm) }}
+{% block body %}
+    <h1 class="text-center">Ajouter une sortie</h1>
+    <div class="container p-5">
+
+    <div class="form-group">
+
+        {{ form_start(sortieForm) }}
+        <div class="row">
+            <div class="col">
+
+                <div class="form-group">
+                    {{ form_row(sortieForm.nom) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(sortieForm.dateHeureDebut) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(sortieForm.DateLimiteInscription) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(sortieForm.nbInscriptionsMax) }}
+                </div>
+                <div class="form-group">
+
+                    <div class="d-flex align-items-center">
+                        {{ form_row(sortieForm.duree) }}
+                        <p>minutes</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_row(sortieForm.infosSortie) }}
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <p>Campus : </p>
+
+                </div>
+                <div class="form-group">
+                    {{ form_row(sortieForm.ville) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(sortieForm.lieu) }}
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around flex-wrap mt-4">
+            {{ form_row(sortieForm.enregistre) }}
+            {{ form_row(sortieForm.publie) }}
+            <a href="/" class="btn btn-warning">Annuler</a>
+        </div>
+        {{ form_end(sortieForm) }}
+    </div>
 
 
     <script>
@@ -17,6 +67,7 @@
             var data = {};
 
             data[$city.attr('name')] = $city.val();
+
 
             // Submit data via AJAX to the form's action path.
             $.ajax({

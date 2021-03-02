@@ -6,19 +6,18 @@ use App\Entity\Sortie;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
-
-
     /**
      * @Route("/sorties/ajouter", name="sortie_ajouter")
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function add(Request $request, EntityManagerInterface $em) {
         $sortie = new Sortie();

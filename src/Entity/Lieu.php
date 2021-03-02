@@ -42,7 +42,7 @@ class Lieu
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="lieux")
      */
-    private $villes;
+    private $ville;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="lieu")
@@ -107,14 +107,14 @@ class Lieu
         return $this;
     }
 
-    public function getVilles(): ?Ville
+    public function getVille(): ?Ville
     {
-        return $this->villes;
+        return $this->ville;
     }
 
-    public function setVilles(?Ville $villes): self
+    public function setVille(?Ville $ville): self
     {
-        $this->villes = $villes;
+        $this->ville = $ville;
 
         return $this;
     }

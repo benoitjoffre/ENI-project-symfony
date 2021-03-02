@@ -4,6 +4,7 @@ namespace App\Form;
 
 
 
+use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -29,18 +30,23 @@ class SortieType extends AbstractType
                 ]
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
+                'time_label' => 'Date et heure de la sortie',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'type'=> 'datetime'
                 ]])
             ->add('duree', NumberType::class, [
+                'label' => 'Durée',
                 'attr' => [
                     'class' => 'form-control'
                 ]])
             ->add('DateLimiteInscription', DateType::class, [
+                'label' => "Durée limite d'inscription",
                 'attr' => [
                     'class' => 'form-control'
                 ]])
             ->add('nbInscriptionsMax', NumberType::class, [
+                'label' => 'Nombre de places',
                 'attr' => [
                     'class' => 'form-control'
                 ]])
@@ -48,6 +54,15 @@ class SortieType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]])
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'mapped' => false,
+                'choice_label' => 'nom',
+                'placeholder' => "veuillez selectionner une ville",
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('enregistre', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'
@@ -59,15 +74,7 @@ class SortieType extends AbstractType
                     'class' => 'btn btn-secondary'
                 ]
             ])
-            ->add('ville', EntityType::class, [
-                'class' => Ville::class,
-                'mapped' => false,
-                'choice_label' => 'nom',
-                'placeholder' => "veuillez selectionner une ville",
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
+
 
 
             ->addEventListener(FormEvents::PRE_SET_DATA,
@@ -81,6 +88,7 @@ class SortieType extends AbstractType
                     }
 
                     $lieux = null === $ville ? [] : $ville->getLieux();
+                    
                     $form->add('lieu', EntityType::class,
                         [
                             'class' => 'App\Entity\Lieu',
@@ -112,7 +120,7 @@ class SortieType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Sortie::class,
         ]);
     }
 }
