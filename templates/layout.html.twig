@@ -3,56 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" id="bootstrap-css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--Custom styles-->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
 
     <title>
         {% block title %}Sortie.com{% endblock %}
     </title>
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" class="">
+    <script src="https://kit.fontawesome.com/10bcb49af4.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
-<div class="container">
 
-        <!-- /.navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark ">
-            <a class="navbar-brand" href="#">Sortie.com</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Sortir.com</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('home') }}">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('login') }}">Login</a>
-                    </li>
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li class="nav-item active">
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('home') }}">Accueil
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li class="nav-item">
                         <a class="nav-link " href="{{ path('logout') }}">Logout</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Sortie</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('sortie_ajouter') }}">Ajouter une sortie</a>
                     </li>
-                    {% endif %}
-                </ul>
+                {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('login') }}">Login</a>
+                        </li>
+                {% endif %}
 
-            </div>
-        </nav>
-</div>
+            </ul>
+        </div>
+    </nav>
+
 </header>
 
 
     <main>
-        <div>
+        <div class="container mt-5">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     {% if (label is same as('success')) %}
@@ -73,7 +71,7 @@
         {% endblock %}
     </main>
 
-    <footer>
+    <footer class="text-center fixed-bottom">
         ©ENI Ecole Informatique {{ "now"|date("Y") }}
     </footer>
 </body>

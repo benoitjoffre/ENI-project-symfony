@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
+{% block main %}
     <h1 class="text-center">Ajouter une sortie</h1>
     <div class="container p-5">
 
@@ -45,12 +45,13 @@
                 <div class="form-group">
                     {{ form_row(sortieForm.lieu) }}
                 </div>
+                <a class="btn btn-success" href="{{ path('lieu_ajouter') }}">Ajouter un lieu</a>
             </div>
         </div>
         <div class="d-flex justify-content-around flex-wrap mt-4">
-            {{ form_row(sortieForm.enregistre) }}
-            {{ form_row(sortieForm.publie) }}
-            <a href="/" class="btn btn-warning">Annuler</a>
+            {{ form_row(sortieForm.enregistrer) }}
+            {{ form_row(sortieForm.publier) }}
+            <a href="{{ path('home') }}" class="btn btn-warning">Annuler</a>
         </div>
         {{ form_end(sortieForm) }}
     </div>
@@ -59,15 +60,14 @@
     <script>
         var $city = $('#sortie_ville');
 
-        // When sport gets selected ...
+        // When ville gets selected ...
         $city.change(function() {
             // ... retrieve the corresponding form.
             var $form = $(this).closest('form');
-            // Simulate form data, but only include the selected sport value.
+            // Simulate form data, but only include the selected ville value.
             var data = {};
 
             data[$city.attr('name')] = $city.val();
-
 
             // Submit data via AJAX to the form's action path.
             $.ajax({
@@ -75,12 +75,12 @@
                 type: $form.attr('method'),
                 data : data,
                 success: function(html) {
-                    // Replace current position field ...
+                    // Replace current lieu field ...
                     $('#sortie_lieu').replaceWith(
                         // ... with the returned one from the AJAX response.
                         $(html).find('#sortie_lieu')
                     );
-                    // Position field now displays the appropriate positions.
+                    // Lieu field now displays the appropriate lieux.
                 }
             });
         });

@@ -20,6 +20,8 @@ class SortieController extends AbstractController
      * @return RedirectResponse|Response
      */
     public function add(Request $request, EntityManagerInterface $em) {
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_REMEMBERED");
+
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -28,21 +30,25 @@ class SortieController extends AbstractController
         if($sortieForm->isSubmitted() && $sortieForm->isValid())
         {
             $sortie->setOrganisateur($this->getUser());
+
             $sortie->setEtat(1);
 
-            if ($sortieForm->get('enregistre')->isClicked() )
+            if ($sortieForm->get('enregistrer')->isClicked() )
             {
                 $sortie->setEstPubliee(false);
                 $em->persist($sortie);
                 $em->flush();
+                $this->addFlash('success', 'Votre sortie est enregistrée !');
+
                 return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
             }
 
-            if ($sortieForm->get('publie')->isClicked() )
+            if ($sortieForm->get('publier')->isClicked() )
             {
                 $sortie->setEstPubliee(true);
                 $em->persist($sortie);
                 $em->flush();
+                $this->addFlash('success', 'Votre sortie est publiée !');
                 return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
             }
         }

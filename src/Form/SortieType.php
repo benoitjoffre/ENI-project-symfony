@@ -31,6 +31,7 @@ class SortieType extends AbstractType
             ])
             ->add('dateHeureDebut', DateTimeType::class, [
                 'time_label' => 'Date et heure de la sortie',
+
                 'attr' => [
                     'class' => 'form-control',
                     'type'=> 'datetime'
@@ -63,19 +64,19 @@ class SortieType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('enregistre', SubmitType::class, [
+
+            ->add('enregistrer', SubmitType::class, [
                 'attr' => [
+                    'placeholder' => 'Enregistrer',
                     'class' => 'btn btn-primary'
                 ]
             ])
-
-            ->add('publie', SubmitType::class, [
+            ->add('publier', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-secondary'
+                    'placeholder' => 'Enregistrer',
+                    'class' => 'btn btn-success'
                 ]
             ])
-
-
 
             ->addEventListener(FormEvents::PRE_SET_DATA,
                 function(FormEvent $event) {
@@ -99,7 +100,6 @@ class SortieType extends AbstractType
                             ]
                         ]);
                 })
-
             ->get('ville')->addEventListener(
                 FormEvents::POST_SUBMIT,
                 function(FormEvent $event) {
@@ -112,6 +112,7 @@ class SortieType extends AbstractType
                             'class' => 'form-control'
                         ]
                     ]);
+                    dump($form);
                 }
             )
         ;

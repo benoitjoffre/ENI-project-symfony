@@ -48,7 +48,7 @@ class Sortie
     private $infosSortie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sorties")
+     * @ORM\Column(type="integer")
      */
     private $etat;
 
@@ -84,12 +84,12 @@ class Sortie
         return $this;
     }
 
-    public function getDateHeureDebut(): ?\DateTimeInterface
+    public function getDateHeureDebut()
     {
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut($dateHeureDebut): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 
@@ -108,12 +108,12 @@ class Sortie
         return $this;
     }
 
-    public function getDateLimiteInscription(): ?\DateTimeInterface
+    public function getDateLimiteInscription()
     {
         return $this->dateLimiteInscription;
     }
 
-    public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription): self
+    public function setDateLimiteInscription($dateLimiteInscription): self
     {
         $this->dateLimiteInscription = $dateLimiteInscription;
 
@@ -144,12 +144,12 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?Etat
+    public function getEtat(): mixed
     {
         return $this->etat;
     }
 
-    public function setEtat(?Etat $etat): self
+    public function setEtat(mixed $etat): self
     {
         $this->etat = $etat;
 
