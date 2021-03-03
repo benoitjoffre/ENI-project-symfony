@@ -68,6 +68,16 @@ class User implements UserInterface
      */
     private $sortiesOrganisees;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="campus")
+     */
+    private $campus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="users")
+     */
+    private $campusNom;
+
     public function __construct()
     {
         $this->sortiesOrganisees = new ArrayCollection();
@@ -245,6 +255,30 @@ class User implements UserInterface
                 $sortiesOrganisee->setOrganisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getCampusNom(): ?Campus
+    {
+        return $this->campusNom;
+    }
+
+    public function setCampusNom(?Campus $campusNom): self
+    {
+        $this->campusNom = $campusNom;
 
         return $this;
     }

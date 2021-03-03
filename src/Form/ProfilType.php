@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Campus;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +21,14 @@ class ProfilType extends AbstractType
             ->add('tel')
             ->add('email')
             ->add('password')
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                /*'choice_label' => 'campus',*/
+                'placeholder' => "veuillez selectionner un campus"
+                ]
+            )
             ->add('maphoto', FileType::class)
+
         ;
     }
 
@@ -27,6 +36,7 @@ class ProfilType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+      
         ]);
     }
 }
