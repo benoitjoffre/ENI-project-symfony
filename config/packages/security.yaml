@@ -4,7 +4,7 @@ security:
         our_db_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                #property: username #commented this property coz we'll use username or email to connect user
 
     firewalls:
         main:
