@@ -40,7 +40,7 @@ class SortieController extends AbstractController
                 $em->flush();
                 $this->addFlash('success', 'Votre sortie est enregistrée !');
 
-                return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+                return $this->redirectToRoute('home');
             }
 
             if ($sortieForm->get('publier')->isClicked() )
@@ -49,7 +49,7 @@ class SortieController extends AbstractController
                 $em->persist($sortie);
                 $em->flush();
                 $this->addFlash('success', 'Votre sortie est publiée !');
-                return $this->redirectToRoute('sortie_detail', ['id' => $sortie->getId()]);
+                return $this->redirectToRoute('home');
             }
         }
 

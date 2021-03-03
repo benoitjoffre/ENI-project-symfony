@@ -69,14 +69,9 @@ class User implements UserInterface
     private $sortiesOrganisees;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="campus")
-     */
-    private $campus;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="users")
      */
-    private $campusNom;
+    private $campus;
 
     public function __construct()
     {
@@ -271,15 +266,4 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCampusNom(): ?Campus
-    {
-        return $this->campusNom;
-    }
-
-    public function setCampusNom(?Campus $campusNom): self
-    {
-        $this->campusNom = $campusNom;
-
-        return $this;
-    }
 }

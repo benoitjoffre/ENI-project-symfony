@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserController extends AbstractController
 {
@@ -28,21 +29,25 @@ class UserController extends AbstractController
 
     /**
      * @Route("/profil", name="user_profil")
+     * @param UserInterface $user
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function edit(UserInterface $user, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
-        $user = new User();
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_REMEMBERED");
         $form = $this->createForm(ProfilType::class, $user);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $password = $encoder->encodePassword($user, $user->getPassword());
-$user->setPassword($password);
-$manager->persist($user);
+            $user->setPassword($password);
             $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('login');
+            $this->addFlash('success', 'Votre profil a bien été modifié !');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render("user/profil.html.twig", [

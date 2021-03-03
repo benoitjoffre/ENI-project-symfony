@@ -13,15 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LieuController extends AbstractController
 {
-    #[Route('/lieu', name: 'lieu')]
-    public function index(): Response
-    {
-        return $this->render('lieu/index.html.twig', [
-            'controller_name' => 'LieuController',
-        ]);
-    }
-
-
     /**
      * @Route("/lieux/ajouter", name="lieu_ajouter")
      * @param Request $request
@@ -29,6 +20,7 @@ class LieuController extends AbstractController
      * @return RedirectResponse|Response
      */
     public function add(Request $request, EntityManagerInterface $em) {
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_REMEMBERED");
         $lieu = new Lieu();
         $lieuForm = $this->createForm(LieuType::class, $lieu);
         $lieuForm->handleRequest($request);

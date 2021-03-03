@@ -20,11 +20,6 @@ class Campus
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $idCampus;
-
-    /**
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
@@ -32,34 +27,16 @@ class Campus
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="campus")
      */
-    private $campus;
-
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="campusNom")
-     */
     private $users;
 
     public function __construct()
     {
-        $this->campus = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdCampus(): ?int
-    {
-        return $this->idCampus;
-    }
-
-    public function setIdCampus(int $idCampus): self
-    {
-        $this->idCampus = $idCampus;
-
-        return $this;
     }
 
     public function getNom(): ?string
@@ -70,36 +47,6 @@ class Campus
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getCampus(): Collection
-    {
-        return $this->campus;
-    }
-
-    public function addCampus(User $campus): self
-    {
-        if (!$this->campus->contains($campus)) {
-            $this->campus[] = $campus;
-            $campus->setCampus($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCampus(User $campus): self
-    {
-        if ($this->campus->removeElement($campus)) {
-            // set the owning side to null (unless already changed)
-            if ($campus->getCampus() === $this) {
-                $campus->setCampus(null);
-            }
-        }
 
         return $this;
     }

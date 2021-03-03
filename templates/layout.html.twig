@@ -23,27 +23,26 @@
 
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+
+
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="nav-item">
                     <a class="nav-link" href="{{ path('home') }}">Accueil
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('sortie_ajouter') }}">Ajouter une sortie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('user_profil') }}">Mon profil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('logout') }}">Logout</a>
+                </li>
 
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('login') }}">Login</a>
-                    </li>
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li class="nav-item active">
-                        <a class="nav-link " href="{{ path('logout') }}">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('sortie_ajouter') }}">Ajouter une sortie</a>
-                    </li>
-                {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('login') }}">Login</a>
-                        </li>
-                {% endif %}
+
+            {% endif %}
 
             </ul>
         </div>
@@ -59,7 +58,6 @@
                     {% if (label is same as('success')) %}
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <strong>{{ message }}
-                            {{ app.user.nom }} {{ app.user.prenom }} !
                             </strong>
                         </div>
                     {% elseif (label is same as('error')) %}
