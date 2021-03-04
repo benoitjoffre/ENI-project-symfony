@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserController extends AbstractController
 {
@@ -27,30 +28,17 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/account/{id}", name="user_account",
-     * requirements={"id": "\d+"},
-     * methods={"GET"})
+     * @Route("/profil", name="user_profil")
+     * @param UserInterface $user
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function profil($id, Request $request)
-    {
-        //$this->denyAccessUnlessGranted("ROLE_USER");
-        $profilRepo = $this->getDoctrine()->getRepository(User::class);
-        $user = $profilRepo->find($id);
-
-        return $this->render('user/account.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * @Route("/account/{id}/modifier", name="user_profil")
-     */
-    public function edit(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function edit(UserInterface $user, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $this->denyAccessUnlessGranted("IS_AUTHENTICATED_REMEMBERED");
-        $user = $this->getUser();
         $form = $this->createForm(ProfilType::class, $user);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -58,15 +46,13 @@ class UserController extends AbstractController
             $user->setPassword($password);
             $manager->persist($user);
             $manager->flush();
-            $this->addFlash("success", "Your account has been updated!");
-            return $this->redirectToRoute('user_account');
+            $this->addFlash('success', 'Votre profil a bien été modifié !');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render("user/profil.html.twig", [
-            "formInfo" => $form->createView(),
-            "user" => $user
+            "formInfo" => $form->createView()
         ]);
 
     }
 }
-

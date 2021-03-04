@@ -1,24 +1,25 @@
 {% extends 'layout.html.twig' %}
 
+
 {% block main %}
+<h1 class="text-center">Mon Profil</h1>
+<div class="container">
+    {{ form_start(formInfo) }}
 
-    <h1 class="text-center">Mon Profil</h1>
-    <div class="container">
-        {{ form_start(formInfo) }}
-
-        {{ form_row(formInfo.prenom) }}
-        {{ form_row(formInfo.nom) }}
-        {{ form_row(formInfo.tel) }}
-        {{ form_row(formInfo.email) }}
-        {{ form_row(formInfo.password) }}
-        {{ form_row(formInfo.campus) }}
-        {{ form_row(formInfo.maphoto) }}
+    {{ form_row(formInfo.username) }}
+    {{ form_row(formInfo.prenom) }}
+    {{ form_row(formInfo.nom) }}
+    {{ form_row(formInfo.tel) }}
+    {{ form_row(formInfo.email) }}
+    {{ form_row(formInfo.password) }}
+    {{ form_row(formInfo.campus) }}
+    {{ form_row(formInfo.maphoto) }}
 
 
-        <button type="submit" class="btn btn-success">Enregistrer</button>
-        <a href="{{ path('user_account', {'id': user.id}) }}" class="btn btn-success">Annuler</a>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+    <a href="{{ path('home') }}" class="btn btn-success">Annuler</a>
 
-        {{ form_end(formInfo) }}
-    </div>
+    {{ form_end(formInfo) }}
+</div>
 
 {% endblock %} 

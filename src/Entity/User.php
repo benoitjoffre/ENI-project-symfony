@@ -12,8 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-//* @UniqueEntity(fields={'username'}, message="username already used!")
-// * @UniqueEntity(fields={'email'}, message="email already used!")
 class User implements UserInterface
 {
     /**
@@ -24,20 +22,17 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\Length(min=3, minMessage="3 characters min")
-     * @Assert\Unique(message="Your login has to be unique")
+     * @ORM\Column(type="string", length=255)
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=4, minMessage="4 characters min for password")
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $roles;
 
@@ -63,7 +58,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $maphoto;
 
@@ -124,19 +119,11 @@ class User implements UserInterface
         $this->password = $password;
     }
 
-
-    function addRole($role)
-    {
-        $this->roles= $role;
-    }
     /**
      * @return mixed
      */
     public function getRoles()
     {
-        if (empty($this->roles)){
-            return ['ROLE_USER'];
-        }
         return [$this->roles];
     }
 
@@ -228,24 +215,6 @@ class User implements UserInterface
         $this->maphoto = $maphoto;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCampus()
-    {
-        return $this->campus;
-    }
-
-    /**
-     * @param mixed $campus
-     */
-    public function setCampus($campus): void
-    {
-        $this->campus = $campus;
-    }
-
-
-
 
     public function getSalt()
     {return null;}
@@ -276,6 +245,7 @@ class User implements UserInterface
     public function removeSortiesOrganisee(Sortie $sortiesOrganisee): self
     {
         if ($this->sortiesOrganisees->removeElement($sortiesOrganisee)) {
+            // set the owning side to null (unless already changed)
             if ($sortiesOrganisee->getOrganisateur() === $this) {
                 $sortiesOrganisee->setOrganisateur(null);
             }
@@ -283,4 +253,17 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
 }
