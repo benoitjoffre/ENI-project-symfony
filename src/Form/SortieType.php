@@ -112,7 +112,6 @@ class SortieType extends AbstractType
                             'class' => 'form-control'
                         ]
                     ]);
-                    dump($form);
                 }
             )
         ;

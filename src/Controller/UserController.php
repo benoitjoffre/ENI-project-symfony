@@ -27,8 +27,23 @@ class UserController extends AbstractController
     public function logout(){
     }
 
+
     /**
      * @Route("/profil", name="user_profil")
+     * @param UserInterface $user
+     */
+    public function profil(UserInterface $user)
+    {
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_REMEMBERED");
+
+        return $this->render("user/profil/profil.html.twig", [
+            "user" => $user
+        ]);
+
+    }
+
+    /**
+     * @Route("/profil/edit", name="user_profil_edit")
      * @param UserInterface $user
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -50,7 +65,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render("user/profil.html.twig", [
+        return $this->render("user/profil/edit.html.twig", [
             "formInfo" => $form->createView()
         ]);
 

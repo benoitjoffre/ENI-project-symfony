@@ -144,12 +144,12 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): mixed
+    public function getEtat()
     {
         return $this->etat;
     }
 
-    public function setEtat(mixed $etat): self
+    public function setEtat($etat): self
     {
         $this->etat = $etat;
 
