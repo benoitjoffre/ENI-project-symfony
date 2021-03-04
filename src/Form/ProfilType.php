@@ -3,9 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\Campus;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -18,12 +16,7 @@ class ProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
-                'attr' => [
-                    'label' => 'Pseudo',
-                    'class' => 'form-control'
-                ]
-            ])
+
             ->add('prenom', TextType::class, [
                 'attr' => [
                     'label' => 'Prénom',
